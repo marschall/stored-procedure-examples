@@ -292,7 +292,9 @@
             <jdbc>
               <driver>org.hsqldb.jdbc.JDBCDriver</driver>
               <url>${hsqlJdbcUrl}</url>
-              <url>jdbc:hsqldb:file:/Users/marschall/git/spring-jdbc-call/src/test/resources/hsql_procedures.sql</url>
+              <!--
+              <url>jdbc:hsqldb:file:${project.basedir}/src/test/resources/hsql_procedures.sql</url>
+              -->
               <user>sa</user>
               <password></password>
             </jdbc>
@@ -301,11 +303,13 @@
               <database>
                 <name>org.jooq.util.hsqldb.HSQLDBDatabase</name>
                 <includes>.*</includes>
+                <!-- 
                 <excludes></excludes>
                 <schemata>
                   <schema><inputSchema>SCHEMA1</inputSchema></schema>
                   <schema><inputSchema>SCHEMA2</inputSchema></schema>
                 </schemata>
+                 -->
               </database>
               <generate>
                 <deprecated>false</deprecated>

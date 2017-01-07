@@ -1,7 +1,9 @@
 package com.github.marschall.storedprocedureexamples;
 
+import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@Ignore
 public class SpringDataJapNamedStoredProcedureTest extends AbstractExampleTest {
 
   @Autowired

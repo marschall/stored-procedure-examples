@@ -19,6 +19,7 @@ public class EbeanTest extends AbstractExampleTest {
   public void setUp() {
     ServerConfig config = new ServerConfig();
     config.setName("ebeantest");
+    config.setDisableClasspathSearch(true);
     config.setDataSource(this.getDataSource());
     config.setDefaultServer(true);
 

@@ -21,7 +21,6 @@ public class SimpleJdbcCallTest extends AbstractExampleTest {
                     new SqlParameter("arg", Types.INTEGER),
                     new SqlOutParameter("res", Types.INTEGER))
             .withoutProcedureColumnMetaDataAccess(); // required if you're not schema owner
-    this.jdbcCall.compile(); // for some reason is void
   }
 
   @Override

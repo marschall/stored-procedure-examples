@@ -54,6 +54,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.sql2o</groupId>
+      <artifactId>sql2o</artifactId>
+      <version>1.5.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>io.ebean</groupId>
       <artifactId>ebean</artifactId>
       <version>10.1.3</version>

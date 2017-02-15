@@ -32,7 +32,6 @@ public class StoredProcedureTest extends AbstractExampleTest {
       // constructors are heavily overloaded with String and int
       declareParameter(new SqlParameter("arg", Types.INTEGER));
       declareParameter(new SqlOutParameter("res", Types.INTEGER));
-      compile();
     }
 
     int plus1inout(int arg) {

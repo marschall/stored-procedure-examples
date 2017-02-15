@@ -23,7 +23,6 @@ public class GenericStoredProcedureTest extends AbstractExampleTest {
 
     storedProcedure.declareParameter(new SqlParameter("arg", Types.INTEGER));
     storedProcedure.declareParameter(new SqlOutParameter("res", Types.INTEGER));
-    storedProcedure.compile();
   }
 
   @Override

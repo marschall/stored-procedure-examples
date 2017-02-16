@@ -14,11 +14,10 @@ public class Jpa21StoredProcedureQueryTest extends AbstractExampleTest {
   @Override
   protected int plus1inout(int arg) {
 
-    StoredProcedureQuery query = entityManager.createStoredProcedureQuery("plus1inout");
-    query.registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN);
-    query.registerStoredProcedureParameter(2, Integer.class, ParameterMode.OUT);
-
-    query.setParameter(1, arg);
+    StoredProcedureQuery query = entityManager.createStoredProcedureQuery("plus1inout")
+      .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN)
+      .registerStoredProcedureParameter(2, Integer.class, ParameterMode.OUT)
+      .setParameter(1, arg);
     query.execute();
 
     return (int) query.getOutputParameterValue(2);

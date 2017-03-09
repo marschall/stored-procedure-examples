@@ -139,6 +139,26 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.datanucleus</groupId>
+      <artifactId>datanucleus-core</artifactId>
+      <version>${datanucleus.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.datanucleus</groupId>
+      <artifactId>datanucleus-rdbms</artifactId>
+      <version>${datanucleus.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.datanucleus</groupId>
+      <artifactId>datanucleus-api-jdo</artifactId>
+      <version>${datanucleus.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.datanucleus</groupId>
+        <artifactId>javax.jdo</artifactId>
+        <version>3.2.0-m6</version>
+    </dependency>
+    <dependency>
       <groupId>org.jooq</groupId>
       <artifactId>jooq</artifactId>
       <version>${jooq.version}</version>
@@ -464,6 +484,7 @@
     <spring.version>4.3.5.RELEASE</spring.version>
     <log4j.version>2.7</log4j.version>
     <jooq.version>3.9.0</jooq.version>
+    <datanucleus.version>5.0.7</datanucleus.version>
     <hsqldbpath>${project.basedir}/src/test/resources/hsql_procedures.sql;shutdown=true</hsqldbpath>
     <hsqlJdbcUrl>jdbc:hsqldb:${hsqldbpath}</hsqlJdbcUrl>
   </properties>

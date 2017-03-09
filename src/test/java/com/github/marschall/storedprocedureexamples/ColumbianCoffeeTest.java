@@ -4,10 +4,11 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.springframework.jdbc.datasource.init.ScriptUtils.DEFAULT_BLOCK_COMMENT_END_DELIMITER;
 import static org.springframework.jdbc.datasource.init.ScriptUtils.DEFAULT_BLOCK_COMMENT_START_DELIMITER;
 import static org.springframework.jdbc.datasource.init.ScriptUtils.DEFAULT_COMMENT_PREFIX;
-import static org.springframework.jdbc.datasource.init.ScriptUtils.DEFAULT_STATEMENT_SEPARATOR;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -25,7 +26,10 @@ import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.marschall.storedprocedureexamples.Coffee.CoffeeSupplier;
 import com.github.marschall.storedprocedureexamples.configuration.MysqlConfiguration;
+import com.github.marschall.storedprocedureproxy.ProcedureCallerFactory;
+import com.github.marschall.storedprocedureproxy.spi.NamingStrategy;
 
 @Transactional
 @ContextConfiguration(classes = MysqlConfiguration.class)
@@ -40,6 +44,8 @@ public class ColumbianCoffeeTest {
   @Autowired
   private DataSource dataSource;
 
+  private Coffee cofffee;
+
   @Before
   public void setUp() throws SQLException {
     try (Connection connection = this.dataSource.getConnection()) {
@@ -50,6 +56,10 @@ public class ColumbianCoffeeTest {
               DEFAULT_COMMENT_PREFIX, "|",
               DEFAULT_BLOCK_COMMENT_START_DELIMITER, DEFAULT_BLOCK_COMMENT_END_DELIMITER);
     }
+
+    this.cofffee = ProcedureCallerFactory.of(Coffee.class, this.dataSource)
+            .withProcedureNamingStrategy(NamingStrategy.snakeCase().thenUpperCase())
+            .build();
   }
 
   @After
@@ -64,7 +74,34 @@ public class ColumbianCoffeeTest {
   }
 
   @Test
-  public void empty() {
+  public void runStoredProcedures() {
+    runStoredProcedures("Colombian", 0.10f, 19.99f);
+  }
+
+
+  public void runStoredProcedures(String coffeeNameArg, float maximumPercentageArg, float newPriceArg) {
+
+    String supplierName = this.cofffee.getSupplierOfCoffee(coffeeNameArg);
+
+    if (supplierName != null) {
+      System.out.println("\nSupplier of the coffee " + coffeeNameArg + ": " + supplierName);
+    } else {
+      System.out.println("\nUnable to find the coffee " + coffeeNameArg);
+    }
+
+    List<CoffeeSupplier> suppliers = this.cofffee.showSuppliers(rs -> new CoffeeSupplier(rs.getString(1), rs.getString(2)));
+    for (CoffeeSupplier supplier : suppliers) {
+      System.out.println(supplier.getName() + ": " + supplier.getCoffee());
+    }
+
+    //      System.out.println("\nContents of COFFEES table before calling RAISE_PRICE:");
+    //      CoffeesTable.viewTable(this.con);
+
+    // FIXME
+//    System.out.println("\nValue of newPrice after calling RAISE_PRICE: " + this.cofffee.raisePrice(coffeeNameArg, maximumPercentageArg));
+
+//    System.out.println("\nContents of COFFEES table after calling RAISE_PRICE:");
+//    CoffeesTable.viewTable(this.con);
 
   }
 

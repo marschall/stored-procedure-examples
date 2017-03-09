@@ -1,14 +1,9 @@
-SELECT 'Dropping procedure SHOW_SUPPLIERS' AS ' '|
 drop procedure if exists SHOW_SUPPLIERS|
 
-SELECT 'Dropping procedure GET_SUPPLIER_OF_COFFEE' AS ' '|
 drop procedure if exists GET_SUPPLIER_OF_COFFEE|
 
-SELECT 'Dropping procedure RAISE_PRICE' AS ' '|
 drop procedure if exists RAISE_PRICE|
 
-
-SELECT 'Creating procedure SHOW_SUPPLIERS' AS ' '|
 create procedure SHOW_SUPPLIERS()
   begin
     select SUPPLIERS.SUP_NAME, COFFEES.COF_NAME
@@ -17,7 +12,6 @@ create procedure SHOW_SUPPLIERS()
     order by SUP_NAME;
   end|
 
-SELECT 'Creating procedure GET_SUPPLIER_OF_COFFEE' AS ' '|  
 create procedure GET_SUPPLIER_OF_COFFEE(IN coffeeName varchar(32), OUT supplierName varchar(40))
   begin
     select SUPPLIERS.SUP_NAME into supplierName
@@ -27,7 +21,6 @@ create procedure GET_SUPPLIER_OF_COFFEE(IN coffeeName varchar(32), OUT supplierN
     select supplierName;
   end|
   
-SELECT 'Creating procedure RAISE_PRICE' AS ' '|  
 create procedure RAISE_PRICE(IN coffeeName varchar(32), IN maximumPercentage float, INOUT newPrice numeric(10,2))
   begin
     main: BEGIN
@@ -51,5 +44,4 @@ create procedure RAISE_PRICE(IN coffeeName varchar(32), IN maximumPercentage flo
     END main;
   end|
   
-SELECT 'Listing stored procedures ...' AS ' '|  
 show procedure status|

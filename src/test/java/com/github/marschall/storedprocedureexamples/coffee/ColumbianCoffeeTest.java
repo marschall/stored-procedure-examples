@@ -1,4 +1,4 @@
-package com.github.marschall.storedprocedureexamples;
+package com.github.marschall.storedprocedureexamples.coffee;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.springframework.jdbc.datasource.init.ScriptUtils.DEFAULT_BLOCK_COMMENT_END_DELIMITER;
@@ -27,7 +27,6 @@ import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.marschall.storedprocedureexamples.Coffee.CoffeeSupplier;
 import com.github.marschall.storedprocedureexamples.configuration.MysqlConfiguration;
 import com.github.marschall.storedprocedureproxy.ProcedureCallerFactory;
 import com.github.marschall.storedprocedureproxy.spi.NamingStrategy;
@@ -82,7 +81,7 @@ public class ColumbianCoffeeTest {
     runStoredProcedures("Colombian", 0.10f, 19.99f);
   }
 
-
+  // see StoredProcedureMySQLSample.runStoredProcedures
   public void runStoredProcedures(String coffeeNameArg, float maximumPercentageArg, float newPriceArg) {
 
     String supplierName = this.cofffee.getSupplierOfCoffee(coffeeNameArg);

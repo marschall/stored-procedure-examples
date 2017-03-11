@@ -6,7 +6,6 @@ import static org.springframework.jdbc.datasource.init.ScriptUtils.DEFAULT_BLOCK
 import static org.springframework.jdbc.datasource.init.ScriptUtils.DEFAULT_COMMENT_PREFIX;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,6 +19,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.EncodedResource;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.rules.SpringClassRule;
@@ -46,6 +47,8 @@ public class ColumbianCoffeeTest {
 
   private Coffee cofffee;
 
+  private JdbcOperations jdbc;
+
   @Before
   public void setUp() throws SQLException {
     try (Connection connection = this.dataSource.getConnection()) {
@@ -60,6 +63,7 @@ public class ColumbianCoffeeTest {
     this.cofffee = ProcedureCallerFactory.of(Coffee.class, this.dataSource)
             .withProcedureNamingStrategy(NamingStrategy.snakeCase().thenUpperCase())
             .build();
+    this.jdbc = new JdbcTemplate(this.dataSource);
   }
 
   @After
@@ -94,15 +98,28 @@ public class ColumbianCoffeeTest {
       System.out.println(supplier.getName() + ": " + supplier.getCoffee());
     }
 
-    //      System.out.println("\nContents of COFFEES table before calling RAISE_PRICE:");
-    //      CoffeesTable.viewTable(this.con);
+    System.out.println("\nContents of COFFEES table before calling RAISE_PRICE:");
+    this.viewTable();
 
     // FIXME
 //    System.out.println("\nValue of newPrice after calling RAISE_PRICE: " + this.cofffee.raisePrice(coffeeNameArg, maximumPercentageArg));
 
-//    System.out.println("\nContents of COFFEES table after calling RAISE_PRICE:");
-//    CoffeesTable.viewTable(this.con);
+    System.out.println("\nContents of COFFEES table after calling RAISE_PRICE:");
+    this.viewTable();
 
   }
+
+  private void viewTable() {
+    this.jdbc.query("select COF_NAME, SUP_ID, PRICE, SALES, TOTAL from COFFEES", rs -> {
+      String coffeeName = rs.getString("COF_NAME");
+      int supplierID = rs.getInt("SUP_ID");
+      float price = rs.getFloat("PRICE");
+      int sales = rs.getInt("SALES");
+      int total = rs.getInt("TOTAL");
+      System.out.println(coffeeName + ", " + supplierID + ", " + price +
+              ", " + sales + ", " + total);
+    });
+  }
+
 
 }

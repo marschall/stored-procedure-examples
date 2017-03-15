@@ -5,6 +5,7 @@ import static org.springframework.jdbc.datasource.init.ScriptUtils.DEFAULT_BLOCK
 import static org.springframework.jdbc.datasource.init.ScriptUtils.DEFAULT_BLOCK_COMMENT_START_DELIMITER;
 import static org.springframework.jdbc.datasource.init.ScriptUtils.DEFAULT_COMMENT_PREFIX;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -78,11 +79,11 @@ public class ColumbianCoffeeTest {
 
   @Test
   public void runStoredProcedures() {
-    runStoredProcedures("Colombian", 0.10f, 19.99f);
+    runStoredProcedures("Colombian", 0.10f, new BigDecimal("19.99"));
   }
 
   // see StoredProcedureMySQLSample.runStoredProcedures
-  public void runStoredProcedures(String coffeeNameArg, float maximumPercentageArg, float newPriceArg) {
+  public void runStoredProcedures(String coffeeNameArg, float maximumPercentageArg, BigDecimal newPriceArg) {
 
     String supplierName = this.cofffee.getSupplierOfCoffee(coffeeNameArg);
 
@@ -100,8 +101,8 @@ public class ColumbianCoffeeTest {
     System.out.println("\nContents of COFFEES table before calling RAISE_PRICE:");
     this.viewTable();
 
-    // FIXME
-//    System.out.println("\nValue of newPrice after calling RAISE_PRICE: " + this.cofffee.raisePrice(coffeeNameArg, maximumPercentageArg));
+    BigDecimal newPrice = this.cofffee.raisePrice(coffeeNameArg, maximumPercentageArg, newPriceArg);
+    System.out.println("\nValue of newPrice after calling RAISE_PRICE: " + newPrice);
 
     System.out.println("\nContents of COFFEES table after calling RAISE_PRICE:");
     this.viewTable();

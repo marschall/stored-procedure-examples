@@ -7,6 +7,9 @@ import com.github.marschall.storedprocedureproxy.ValueExtractor;
 import com.github.marschall.storedprocedureproxy.annotations.InOutParameter;
 import com.github.marschall.storedprocedureproxy.annotations.OutParameter;
 
+/**
+ * Interface for calling stored procedures.
+ */
 public interface Coffee {
 
   List<CoffeeSupplier> showSuppliers(ValueExtractor<CoffeeSupplier> extractor);

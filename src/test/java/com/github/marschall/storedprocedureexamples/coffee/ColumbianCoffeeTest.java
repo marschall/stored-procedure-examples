@@ -52,6 +52,7 @@ public class ColumbianCoffeeTest {
   @Before
   public void setUp() throws SQLException {
     try (Connection connection = this.dataSource.getConnection()) {
+      // execute the set up SQL scripts
       ScriptUtils.executeSqlScript(connection, script("create-tables.sql"));
       ScriptUtils.executeSqlScript(connection, script("populate-tables.sql"));
       ScriptUtils.executeSqlScript(connection, script("create-procedures.sql"),
@@ -60,15 +61,19 @@ public class ColumbianCoffeeTest {
               DEFAULT_BLOCK_COMMENT_START_DELIMITER, DEFAULT_BLOCK_COMMENT_END_DELIMITER);
     }
 
+    // create the instance of the Coffee interface
     this.cofffee = ProcedureCallerFactory.of(Coffee.class, this.dataSource)
             .withProcedureNamingStrategy(NamingStrategy.snakeCase().thenUpperCase())
             .build();
+
+    // create a JdbcTemplate for selecting
     this.jdbc = new JdbcTemplate(this.dataSource);
   }
 
   @After
   public void tearDown() throws SQLException {
     try (Connection connection = this.dataSource.getConnection()) {
+      // execute the tear down SQL script
       ScriptUtils.executeSqlScript(connection, script("drop-tables.sql"));
     }
   }
@@ -77,6 +82,7 @@ public class ColumbianCoffeeTest {
     return new EncodedResource(new ClassPathResource("colombian_coffee/mysql/" + path), US_ASCII);
   }
 
+  // see StoredProcedureMySQLSample.main
   @Test
   public void runStoredProcedures() {
     runStoredProcedures("Colombian", 0.10f, new BigDecimal("19.99"));
@@ -106,7 +112,6 @@ public class ColumbianCoffeeTest {
 
     System.out.println("\nContents of COFFEES table after calling RAISE_PRICE:");
     this.viewTable();
-
   }
 
   private void viewTable() {

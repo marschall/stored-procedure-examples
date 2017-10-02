@@ -1,6 +1,6 @@
 package com.github.marschall.storedprocedureexamples;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.github.marschall.storedprocedureproxy.ProcedureCallerFactory;
 import com.github.marschall.storedprocedureproxy.annotations.OutParameter;
@@ -9,7 +9,7 @@ public class StoredProcedureProxyTest extends AbstractExampleTest {
 
   private Procedures procedures;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.procedures = ProcedureCallerFactory.build(Procedures.class, this.getDataSource());
   }

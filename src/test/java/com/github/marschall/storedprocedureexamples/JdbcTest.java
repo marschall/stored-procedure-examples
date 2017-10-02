@@ -1,6 +1,6 @@
 package com.github.marschall.storedprocedureexamples;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;

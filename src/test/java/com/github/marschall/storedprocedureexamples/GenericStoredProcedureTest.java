@@ -4,7 +4,7 @@ package com.github.marschall.storedprocedureexamples;
 import java.sql.Types;
 import java.util.Map;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.GenericStoredProcedure;
@@ -14,7 +14,7 @@ public class GenericStoredProcedureTest extends AbstractExampleTest {
 
   private StoredProcedure storedProcedure;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     storedProcedure = new GenericStoredProcedure();
     storedProcedure.setDataSource(this.getDataSource());

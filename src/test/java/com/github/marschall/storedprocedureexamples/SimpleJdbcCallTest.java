@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Map;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
@@ -13,7 +13,7 @@ public class SimpleJdbcCallTest extends AbstractExampleTest {
 
   private SimpleJdbcCall jdbcCall;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.jdbcCall = new SimpleJdbcCall(getDataSource())
             .withProcedureName("plus1inout")

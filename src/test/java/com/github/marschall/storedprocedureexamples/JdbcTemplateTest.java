@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlOutParameter;
@@ -16,7 +16,7 @@ public class JdbcTemplateTest extends AbstractExampleTest {
 
   private JdbcOperations jdbcOperations;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.jdbcOperations = new JdbcTemplate(this.getDataSource());
   }

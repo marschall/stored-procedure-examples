@@ -69,19 +69,19 @@
     <dependency>
       <groupId>io.ebean</groupId>
       <artifactId>ebean</artifactId>
-      <version>10.4.1</version>
+      <version>10.4.7</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
-      <version>1.11.6.RELEASE</version>
+      <version>2.0.0.RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>javax.persistence</artifactId>
-      <version>2.1.1</version>
+      <version>2.2.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -93,7 +93,7 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-entitymanager</artifactId>
-      <version>5.2.10.Final</version>
+      <version>5.2.11.Final</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -101,6 +101,12 @@
       <artifactId>spring-core</artifactId>
       <version>${spring.version}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-jcl</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -147,7 +153,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>6.0.6</version>
+      <version>8.0.8-dmr</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -188,7 +194,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>2.5.0</version>
+      <version>2.10.0</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -198,15 +204,21 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-junit</artifactId>
-      <version>2.0.0.0</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <version>${junit.platform.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -292,6 +304,16 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-surefire-provider</artifactId>
+            <version>${junit.platform.version}</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -438,10 +460,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
-    <spring.version>4.3.10.RELEASE</spring.version>
-    <log4j.version>2.7</log4j.version>
-    <jooq.version>3.9.5</jooq.version>
-    <datanucleus.version>5.1.0-release</datanucleus.version>
+    <spring.version>5.0.0.RELEASE</spring.version>
+    <junit.jupiter.version>5.0.0</junit.jupiter.version>
+    <junit.platform.version>1.0.0</junit.platform.version>
+    <log4j.version>2.9.1</log4j.version>
+    <jooq.version>3.10.0</jooq.version>
+    <datanucleus.version>5.1.2</datanucleus.version>
     <hsqldbpath>${project.basedir}/src/test/resources/hsql_procedures.sql;shutdown=true</hsqldbpath>
     <hsqlJdbcUrl>jdbc:hsqldb:${hsqldbpath}</hsqlJdbcUrl>
   </properties>

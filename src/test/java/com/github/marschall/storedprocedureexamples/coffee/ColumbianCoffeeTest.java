@@ -12,20 +12,16 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.EncodedResource;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.marschall.storedprocedureexamples.configuration.MysqlConfiguration;
@@ -33,14 +29,8 @@ import com.github.marschall.storedprocedureproxy.ProcedureCallerFactory;
 import com.github.marschall.storedprocedureproxy.spi.NamingStrategy;
 
 @Transactional
-@ContextConfiguration(classes = MysqlConfiguration.class)
+@SpringJUnitConfig(MysqlConfiguration.class)
 public class ColumbianCoffeeTest {
-
-  @ClassRule
-  public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-  @Rule
-  public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
   @Autowired
   private DataSource dataSource;
@@ -49,7 +39,7 @@ public class ColumbianCoffeeTest {
 
   private JdbcOperations jdbc;
 
-  @Before
+  @BeforeEach
   public void setUp() throws SQLException {
     try (Connection connection = this.dataSource.getConnection()) {
       // execute the set up SQL scripts
@@ -70,7 +60,7 @@ public class ColumbianCoffeeTest {
     this.jdbc = new JdbcTemplate(this.dataSource);
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws SQLException {
     try (Connection connection = this.dataSource.getConnection()) {
       // execute the tear down SQL script

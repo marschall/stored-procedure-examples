@@ -2,8 +2,8 @@ package com.github.marschall.storedprocedureexamples;
 
 import java.sql.Types;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import io.ebean.CallableSql;
 import io.ebean.Ebean;
@@ -15,7 +15,7 @@ public class EbeanTest extends AbstractExampleTest {
 
   private EbeanServer server;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     ServerConfig config = new ServerConfig();
     config.setName("ebeantest");
@@ -26,7 +26,7 @@ public class EbeanTest extends AbstractExampleTest {
     server = EbeanServerFactory.create(config);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     server.shutdown(false, false);
   }

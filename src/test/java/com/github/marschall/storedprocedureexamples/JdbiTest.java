@@ -2,8 +2,8 @@ package com.github.marschall.storedprocedureexamples;
 
 import java.sql.Types;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.OutParameters;
@@ -12,13 +12,13 @@ public class JdbiTest extends AbstractExampleTest {
 
   private Handle handle;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     DBI dbi = new DBI(this.getDataSource());
     this.handle = dbi.open();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     this.handle.close();
   }

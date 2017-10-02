@@ -10,15 +10,15 @@ import javax.jdo.Query;
 import org.datanucleus.api.jdo.JDOQuery;
 import org.datanucleus.metadata.StoredProcQueryParameterMode;
 import org.datanucleus.store.rdbms.query.StoredProcedureQuery;
-import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 
-@Ignore("broken")
+@Disabled("broken")
 public class DatanucleusTest extends AbstractExampleTest {
 
   private PersistenceManager persistenceManager;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     Properties properties = new Properties();
     properties.setProperty("javax.jdo.PersistenceManagerFactoryClass", "org.datanucleus.api.jdo.JDOPersistenceManagerFactory");

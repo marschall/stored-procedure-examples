@@ -2,7 +2,7 @@ package com.github.marschall.storedprocedureexamples;
 
 import static java.sql.Types.INTEGER;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import spwrap.Config;
 import spwrap.DAO;
@@ -14,7 +14,7 @@ public class SpWrapTest extends AbstractExampleTest {
 
   private MathDAO mathDao;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     DAO dao = new DAO.Builder(this.getDataSource())
             .config(new Config().useStatusFields(false))

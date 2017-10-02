@@ -1,15 +1,15 @@
 package com.github.marschall.storedprocedureexamples;
 
-import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.sql2o.Sql2o;
 
-@Ignore
+@Disabled
 public class Sql2OTest extends AbstractExampleTest {
 
   private Sql2o sql2o;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.sql2o = new Sql2o(getDataSource());
   }

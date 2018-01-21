@@ -2,11 +2,11 @@ package com.github.marschall.storedprocedureexamples;
 
 import java.sql.Types;
 
+import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.statement.OutParameters;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.skife.jdbi.v2.DBI;
-import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.OutParameters;
 
 public class JdbiTest extends AbstractExampleTest {
 
@@ -14,7 +14,7 @@ public class JdbiTest extends AbstractExampleTest {
 
   @BeforeEach
   public void setUp() {
-    DBI dbi = new DBI(this.getDataSource());
+    Jdbi dbi = Jdbi.create(this.getDataSource());
     this.handle = dbi.open();
   }
 
@@ -25,11 +25,11 @@ public class JdbiTest extends AbstractExampleTest {
 
   @Override
   protected int plus1inout(int arg) {
-    OutParameters outParameters = handle.createCall("call plus1inout(?, ?);")
+    OutParameters outParameters = this.handle.createCall("call plus1inout(?, ?);")
             .bind(0, arg)
             .registerOutParameter(1, Types.INTEGER)
             .invoke();
-    return outParameters.getInt(2);
+    return outParameters.getInt(1);
   }
 
 }

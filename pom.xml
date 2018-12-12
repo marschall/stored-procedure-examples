@@ -73,6 +73,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.apache.cayenne</groupId>
+      <artifactId>cayenne-server</artifactId>
+      <version>4.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
       <version>2.1.1.RELEASE</version>

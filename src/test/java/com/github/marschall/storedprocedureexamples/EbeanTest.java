@@ -6,40 +6,39 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import io.ebean.CallableSql;
-import io.ebean.Ebean;
-import io.ebean.EbeanServer;
-import io.ebean.EbeanServerFactory;
-import io.ebean.config.ServerConfig;
+import io.ebean.Database;
+import io.ebean.DatabaseFactory;
+import io.ebean.config.DatabaseConfig;
 
 public class EbeanTest extends AbstractExampleTest {
 
-  private EbeanServer server;
+  private Database database;
 
   @BeforeEach
   public void setUp() {
-    ServerConfig config = new ServerConfig();
+    DatabaseConfig config = new DatabaseConfig();
     config.setName("ebeantest");
     config.setDisableClasspathSearch(true);
     config.setDataSource(this.getDataSource());
     config.setDefaultServer(true);
 
-    server = EbeanServerFactory.create(config);
+    this.database = DatabaseFactory.create(config);
   }
 
   @AfterEach
   public void tearDown() {
-    server.shutdown(false, false);
+    this.database.shutdown(false, false);
   }
 
   @Override
   protected int plus1inout(int arg) {
     String sql = "{call plus1inout(?,?)}";
 
-    CallableSql callableSql = Ebean.createCallableSql(sql);
+    CallableSql callableSql = this.database.createCallableSql(sql);
     callableSql.setParameter(1, arg);
     callableSql.registerOut(2, Types.INTEGER);
 
-    Ebean.execute(callableSql);
+    this.database.execute(callableSql);
     return (int) callableSql.getObject(2);
   }
 

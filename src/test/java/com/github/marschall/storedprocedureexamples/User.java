@@ -13,6 +13,6 @@ import javax.persistence.StoredProcedureParameter;
     @StoredProcedureParameter(mode = ParameterMode.OUT, name = "res", type = Integer.class) })
 public class User {
 
-  @Id @GeneratedValue//
+  @Id @GeneratedValue
   private Long id;
 }

@@ -2,6 +2,7 @@ package com.github.marschall.storedprocedureexamples;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 @Disabled
@@ -11,7 +12,7 @@ public class Sql2OTest extends AbstractExampleTest {
 
   @BeforeEach
   public void setUp() {
-    this.sql2o = new Sql2o(getDataSource());
+    this.sql2o = new Sql2o(this.getDataSource());
   }
 
   @Override
@@ -21,7 +22,11 @@ public class Sql2OTest extends AbstractExampleTest {
             "exec plus1inout @inputParam = :arg, @outputParam = @outputParam OUTPUT " +
             "select @outputParam as myval";
 
-    return sql2o.createQuery(sql).addParameter("arg", arg).executeScalar(Integer.class);
+    try (Connection connection = this.sql2o.open()) {
+      return connection.createQuery(sql)
+                       .addParameter("arg", arg)
+                       .executeScalar(Integer.class);
+    }
   }
 
 }
